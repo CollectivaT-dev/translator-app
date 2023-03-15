@@ -1,7 +1,8 @@
 .DS_Store
 node_modules
 /dist
-
+/amazic-translate-dist-ca
+/amazic-translate-dist-en
 
 # local env files
 .env.local

@@ -198,12 +198,16 @@ export default {
       };
     },
     validLanguages() {
-      return this.languages.filter((l) => l.code !== "xx");
+      // TEMPORARY SOLUTION
+      // return this.languages.filter((l) => l.code != "xx");
+      return this.languages.filter((l) => l.code == "zgh" || l.code == "ca" || l.code == "ary" || l.code == "es" || l.code == "fr" || l.code == "en");
     },
   },
   mounted() {
     this.getList();
     this.prepareModal();
+    //document.title = "Traductor amazic";
+    document.title = "Tamazight Translate" //TITLE HERE
     // toast({
     //     message: this.$t("Thank you for your contribution"),
     //     type: "is-primary",
@@ -215,7 +219,7 @@ export default {
   },
   methods: {
     isTargetLangEnabled(langCode) {
-      if (this.sourceLang.code !== "lad" && langCode !== "lad") {
+      if (this.sourceLang.code !== "zgh" && langCode !== "zgh") {
         return false;
       }
       return this.models[this.sourceLang.code]
@@ -224,20 +228,20 @@ export default {
     },
     setSouceLang(lang) {
       this.sourceLang = lang;
-      if (lang.code === "lad") {
-        this.targetLang = this.languages.find((l) => l.code !== "lad");
+      if (lang.code === "zgh") {
+        this.targetLang = this.languages.find((l) => l.code !== "zgh");
       }
-      if (lang.code !== "lad") {
-        this.targetLang = this.languages.find((l) => l.code === "lad");
+      if (lang.code !== "zgh") {
+        this.targetLang = this.languages.find((l) => l.code === "zgh");
       }
     },
     setTargetLang(lang) {
       this.targetLang = lang;
-      if (lang.code === "lad" && this.sourceLang.code === "lad") {
-        this.sourceLang = this.languages.find((l) => l.code !== "lad");
+      if (lang.code === "zgh" && this.sourceLang.code === "zgh") {
+        this.sourceLang = this.languages.find((l) => l.code !== "zgh");
       }
-      if (lang.code !== "lad") {
-        this.sourceLang = this.languages.find((l) => l.code === "lad");
+      if (lang.code !== "zgh") {
+        this.sourceLang = this.languages.find((l) => l.code === "zgh");
       }
     },
     getList() {
@@ -247,12 +251,27 @@ export default {
       // or
       this.axios.get(`${this.apiBase}/translate`).then((response) => {
         this.models = JSON.parse(JSON.stringify(response.data.models));
-        for (var i in response.data.languages) {
-          this.languages.push({ code: i, name: response.data.languages[i] });
-        }
+
+        this.languages.push({ code: "zgh", name: "Tamazight" });
+        this.languages.push({ code: "en", name: "English" });
+        this.languages.push({ code: "ca", name: "Catalan" });
+        this.languages.push({ code: "es", name: "Spanish" });
+        this.languages.push({ code: "fr", name: "French" });
+        // this.languages.push({ code: "en", name: "English" });
+        this.languages.push({ code: "ary", name: "Arabic" });
+
+        // for (var i in response.data.languages) {
+        //   this.languages.push({ code: i, name: response.data.languages[i] });
+        // }
+
+        //this.languages.push({ code: "zgh", name: "Tamazight" });
+        // this.languages.push({ code: "fr", name: "French" });
+        // this.languages.push({ code: "ca", name: "Catalan" });
+        // this.languages.push({ code: "ary", name: "Arabic" });
+
         // this.languages = response.data.languages;
-        this.sourceLang = this.languages.find((l) => l.code !== "lad");
-        this.targetLang = this.languages.find((l) => l.code === "lad");
+        this.sourceLang = this.languages.find((l) => l.code !== "zgh");
+        this.targetLang = this.languages.find((l) => l.code === "zgh");
         // this.targetLang =
       });
     },

@@ -16,11 +16,11 @@ export default defineComponent({
 
 <style scoped>
 img{
-  height: 80px;
+  height: 100px;
   margin: 0rem auto;
 }
 .header-disclaimer{
   margin-bottom: 2rem;
-  font-size: 0.7em;
+  font-size: 2em;
 }
 </style>

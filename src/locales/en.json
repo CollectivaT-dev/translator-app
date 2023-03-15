@@ -3,12 +3,20 @@
   "es": "Spanish",
   "tr": "Turkish",
   "lad": "Ladino",
+  "zgh": "Tamazight",
+  "ca": "Catalan",
+  "ary": "Arabic",
+  "fr": "French",
   "Random": "Random Sentence",
   "Contribute": "Contribute",
   "Cancel": "Cancel",
   "Submit": "Submit",
   "Type something to translate...": "Type something to translate...",
   "Thank you for your contribution": "Thank you for your contribution!",
-  "disclaimer": "This machine translation application has been prepared by SKAD and Col·lectivaT for educational purposes. Like every machine translation application, it has an error margin and should not be counted as professional translation. This web application was created with the financial support of the European Union. The content of this website is the sole responsibility of Col·lectivaT and SKAD and does not necessarily reflect the views of the European Union.",
-  "header": "This project is funded by the European Union."
+  "disclaimer": "Application built by Col·lectivaT. Machine translation models based on META AI's NLLB model.",
+  "header": "Tamazight Translate",
+  "title": "Tamazight Translate",
+  "support": "With support from", 
+  "supportgene":"with the support of the Catalan Development Cooperation Agency and the Department of Social Rights",
+  "iniciative": "An iniciative by"
 }
