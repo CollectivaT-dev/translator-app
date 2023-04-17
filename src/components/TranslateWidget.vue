@@ -13,7 +13,7 @@
                 :key="i"
               >
                 <button
-                  class="button zis-warning mr-1"
+                  class="button zis-warning mr-1 lang-btn"
                   :class="{
                     'is-primary': sourceLang.code === lang.code,
                     'is-warning': sourceLang.code !== lang.code,
@@ -73,7 +73,7 @@
               >
                 <button
                   :disabled="!isTargetLangEnabled(lang.code)"
-                  class="button zis-warning mr-1"
+                  class="button zis-warning mr-1 lang-btn"
                   :class="{
                     'is-primary': targetLang.code === lang.code,
                     'is-warning': targetLang.code !== lang.code,
@@ -200,7 +200,7 @@ export default {
     validLanguages() {
       // TEMPORARY SOLUTION
       // return this.languages.filter((l) => l.code != "xx");
-      return this.languages.filter((l) => l.code == "zgh" || l.code == "ca" || l.code == "ary" || l.code == "es" || l.code == "fr" || l.code == "en");
+      return this.languages.filter((l) => l.code == "zgh" || l.code == "ca" || l.code == "ary" || l.code == "es" || l.code == "fr" || l.code == "en" || l.code == "ber");
     },
   },
   mounted() {
@@ -219,7 +219,8 @@ export default {
   },
   methods: {
     isTargetLangEnabled(langCode) {
-      if (this.sourceLang.code !== "zgh" && langCode !== "zgh") {
+      if (this.sourceLang.code !== "zgh" && this.sourceLang.code !== "ber" &&
+          langCode !== "zgh" && langCode !== "ber") {
         return false;
       }
       return this.models[this.sourceLang.code]
@@ -228,11 +229,15 @@ export default {
     },
     setSouceLang(lang) {
       this.sourceLang = lang;
-      if (lang.code === "zgh") {
-        this.targetLang = this.languages.find((l) => l.code !== "zgh");
+      if (lang.code === "zgh" || this.targetLang === "zgh") {
+          this.targetLang = this.languages.find((l) => l.code !== "zgh");
       }
-      if (lang.code !== "zgh") {
-        this.targetLang = this.languages.find((l) => l.code === "zgh");
+      if (lang.code === "ber" || this.targetLang === "ber") {
+          this.targetLang = this.languages.find((l) => l.code !== "ber");
+      }
+      if (lang.code !== "zgh" && lang.code !== "ber") {
+        if (this.targetLang.code !== "zgh" && this.targetLang.code !== "ber" )
+        this.targetLang = this.languages.find((l) => l.code === "zgh" || l.code === "ber");
       }
     },
     setTargetLang(lang) {
@@ -240,8 +245,12 @@ export default {
       if (lang.code === "zgh" && this.sourceLang.code === "zgh") {
         this.sourceLang = this.languages.find((l) => l.code !== "zgh");
       }
-      if (lang.code !== "zgh") {
-        this.sourceLang = this.languages.find((l) => l.code === "zgh");
+      if (lang.code === "ber" && this.sourceLang.code === "ber") {
+        this.sourceLang = this.languages.find((l) => l.code !== "ber");
+      }
+      if (lang.code !== "zgh" && lang.code !== "ber") {
+        if (this.sourceLang.code !== "zgh" && this.sourceLang.code !== "ber")
+          this.sourceLang = this.languages.find((l) => l.code === "zgh");
       }
     },
     getList() {
@@ -253,6 +262,7 @@ export default {
         this.models = JSON.parse(JSON.stringify(response.data.models));
 
         this.languages.push({ code: "zgh", name: "Tamazight" });
+        this.languages.push({ code: "ber", name: "Berber" });
         this.languages.push({ code: "en", name: "English" });
         this.languages.push({ code: "ca", name: "Catalan" });
         this.languages.push({ code: "es", name: "Spanish" });
@@ -270,7 +280,7 @@ export default {
         // this.languages.push({ code: "ary", name: "Arabic" });
 
         // this.languages = response.data.languages;
-        this.sourceLang = this.languages.find((l) => l.code !== "zgh");
+        this.sourceLang = this.languages.find((l) => l.code === "en"); //Startup source language
         this.targetLang = this.languages.find((l) => l.code === "zgh");
         // this.targetLang =
       });
